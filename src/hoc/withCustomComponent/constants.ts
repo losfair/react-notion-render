@@ -19,38 +19,4 @@ interface CustomComponent {
 }
 
 export const customComponents: CustomComponent[] = [
-  {
-    match: /-\[[^\]]*\]\((.*?)\s*("(?:.*[^"])")?\s*\)/,
-    // eslint-disable-next-line camelcase
-    transformProps: ({ plain_text }) => ({
-      media: {
-        alt: plain_text.split('-[')[1].split(']')[0],
-        src: plain_text.split('(')[1].split(')')[0],
-        player: plain_text.indexOf('#') < 0 ? undefined : plain_text.substr(plain_text.indexOf('#')).replace('#', '')
-      }
-    }),
-    component: Video
-  },
-  {
-    match: /!\[[^\]]*\]\((.*?)\s*("(?:.*[^"])")?\s*\)/,
-    // eslint-disable-next-line camelcase
-    transformProps: ({ plain_text }) => ({
-      media: {
-        alt: plain_text.split('![')[1].split(']')[0],
-        src: plain_text.split('(')[1].split(')')[0],
-        href: plain_text.indexOf('#') < 0 ? undefined : plain_text.substr(plain_text.indexOf('#')).replace('#', '')
-      }
-    }),
-    component: Image
-  },
-  {
-    match: /[[^\]]*\]\((.*?)\s*("(?:.*[^"])")?\s*\)/,
-    // eslint-disable-next-line camelcase
-    transformProps: ({ plain_text, annotations }) => ({
-      url: plain_text.split('(')[1].split(')')[0],
-      children: plain_text.split('[')[1].split(']')[0],
-      className: getClassname(annotations)
-    }),
-    component: Link
-  }
 ]
